@@ -5,12 +5,12 @@ class LocationList extends Component {
 
     state = {
         locations: [{
-            id: 0,
+            id: 1,
             name: "Nashville North",
             address: "10101 Binary Court"
         },
         {
-            id: 0,
+            id: 2,
             name: "Nashville South",
             address: "314159 Pi Street"
         }]
@@ -20,7 +20,7 @@ class LocationList extends Component {
         return (
             <div>
                 {this.state.locations.map(location =>
-                    <Location name={location.name} address={location.address} />
+                    <Location locationId={location.id} name={location.name} address={location.address} />
                 )}
             </div>
         )
