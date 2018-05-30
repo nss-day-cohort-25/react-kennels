@@ -3,21 +3,27 @@ import Dog from "./Dog"
 
 class DogList extends Component {
 
-    state = { dogs: [
-        { id: 1, name: "Scout", locationId:1, ownerId: 1 },
-        { id: 2, name: "Slinky", locationId:2, ownerId: 2 },
-        { id: 3, name: "Milkshake", locationId:1, ownerId: 2 },
-        { id: 4, name: "Maya", locationId:2, ownerId: 1 }
-    ]}
+    state = { dogs: [] }
+
+    componentDidMount() {
+        fetch(`http://localhost:5000/dogs?locationId=${this.props.locationId}`)
+            // Must be explicit on how to parse the response
+            .then(response => response.json())
+
+            // JSON parsed data comes to this then()
+            .then(apiDogs => {
+                this.setState({
+                    dogs: apiDogs
+                })
+            })
+
+    }
 
     render() {
         return (
             <div>
                 {
-                    this.state.dogs.filter(dog => {
-                        return dog.locationId === this.props.locationId
-                    })
-                    .map(dog => (
+                    this.state.dogs.map(dog => (
                         <Dog name={dog.name} key={dog.id} />
                     ))
                 }
